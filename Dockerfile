@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Tentukan port untuk aplikasi Flask
-EXPOSE 8000
+EXPOSE 8080
 
 # Jalankan aplikasi Flask menggunakan Gunicorn
 CMD ["gunicorn", "-b", "0.0.0.0:8080", "app:app"]
