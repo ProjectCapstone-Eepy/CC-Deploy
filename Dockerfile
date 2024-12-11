@@ -17,7 +17,7 @@ RUN pip install protobuf==3.19.6
 RUN pip install tensorflow==2.10 keras==2.10
 
 # Salin seluruh aplikasi ke dalam container
-COPY . .
+COPY . /app
 
 # Tentukan port untuk aplikasi Flask
 EXPOSE 8080
