@@ -1,23 +1,24 @@
 import joblib
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS
 
-scaler = MinMaxScaler()  # Normalisation scaler
-
-# Load Model
+# Load Models
 try:
     s_quality = joblib.load('sleep_quality.pkl')
     s_duration = joblib.load('sleep_duration.pkl')
     print("Models loaded successfully.")
-except FileNotFoundError:
+except FileNotFoundError as e:
+    print("Error: Model file not found. Ensure 'sleep_quality.pkl' and 'sleep_duration.pkl' exist.")
     s_quality = None
     s_duration = None
-    print("Error: Models not found. Ensure 'sleep_quality.pkl' and 'sleep_duration.pkl' are in the correct directory.")
+except Exception as e:
+    print(f"Error loading models: {e}")
+    s_quality = None
+    s_duration = None
 
 # Endpoint Default
 @app.route('/')
@@ -37,13 +38,13 @@ def predict_quality():
         gender = float(data.get('gender'))  # Ensure numerical input
         age = float(data.get('age'))
         physical_activity = float(data.get('physical_activity'))
-        stress_level = 10 - float(data.get('stress_level'))  # Invert stress level as per your logic
+        stress_level = 10 - float(data.get('stress_level'))  # Invert stress level
         sleep_duration = float(data.get('sleep_duration')) * 30  # Scale sleep duration
 
         # Check if all fields are valid
         if not all(isinstance(x, (int, float)) for x in [gender, age, physical_activity, stress_level, sleep_duration]):
             return jsonify({"error": "Invalid input types. All inputs must be numeric."}), 400
-    except Exception as e:
+    except (ValueError, TypeError) as e:
         return jsonify({"error": f"Invalid input format: {str(e)}"}), 400
 
     # Prepare input features
@@ -69,12 +70,12 @@ def predict_duration():
         gender = float(data.get('gender'))  # Ensure numerical input
         age = float(data.get('age'))
         physical_activity = float(data.get('physical_activity'))
-        stress_level = 10 - float(data.get('stress_level'))  # Invert stress level as per your logic
+        stress_level = 10 - float(data.get('stress_level'))  # Invert stress level
 
         # Check if all fields are valid
         if not all(isinstance(x, (int, float)) for x in [gender, age, physical_activity, stress_level]):
             return jsonify({"error": "Invalid input types. All inputs must be numeric."}), 400
-    except Exception as e:
+    except (ValueError, TypeError) as e:
         return jsonify({"error": f"Invalid input format: {str(e)}"}), 400
 
     # Prepare input features

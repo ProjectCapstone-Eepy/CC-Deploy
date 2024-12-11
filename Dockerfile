@@ -13,6 +13,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Instal protobuf versi yang kompatibel
 RUN pip install protobuf==3.19.6
 
+# Instal TensorFlow dan Keras versi kompatibel
+RUN pip install tensorflow==2.10 keras==2.10
+
 # Salin seluruh aplikasi ke dalam container
 COPY . .
 
