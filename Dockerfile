@@ -10,6 +10,9 @@ COPY requirements.txt .
 # Install dependencies dari requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Instal protobuf versi yang kompatibel
+RUN pip install protobuf==3.19.6
+
 # Salin seluruh aplikasi ke dalam container
 COPY . .
 
