@@ -1,13 +1,19 @@
+import joblib
+
 from flask import Flask, request, jsonify
+from flask_cors import CORS
+from sklearn.preprocessing import MinMaxScaler
 import numpy as np
-import tensorflow as tf
 
 app = Flask(__name__)
+CORS(app) # Enable CORS
+
+scaler = MinMaxScaler() # Normalisation scaler
 
 # Load Model
 try:
-    s_quality = tf.keras.models.load_model('sleepquality.keras')
-    s_duration = tf.keras.models.load_model('sleepduration.keras')
+    s_quality = joblib.load('sleep_quality.pkl')
+    s_duration = joblib.load('sleep_duration.pkl')
 except FileNotFoundError:
     s_quality = None
     s_duration = None
