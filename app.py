@@ -44,7 +44,7 @@ def predict_quality():
     input_features = [[gender, age, physical_activity, stress_level, sleep_duration]]
     input_features = np.array(input_features, dtype='float32')
     prediction = s_quality.predict(input_features)
-    prediction = float(prediction[0][0]) # Ambil nilai prediksi dari array
+    prediction = float(prediction) # Ambil nilai prediksi dari array
     prediction = prediction / 100
     return jsonify({"prediction": prediction}), 200
 
@@ -65,7 +65,7 @@ def predict_duration():
     input_features = [[gender, age, physical_activity, stress_level]]
     input_features = np.array(input_features, dtype='float32')
     prediction = s_duration.predict(input_features)
-    prediction = float(prediction[0][0]) # Ambil nilai prediksi dari array
+    prediction = float(prediction) # Ambil nilai prediksi dari array
     prediction = prediction / 10
     return jsonify({"prediction": prediction}), 200
 
