@@ -1,17 +1,18 @@
-FROM python:3.10
+# Base image
+FROM python:3.9-slim
 
+# Set working directory
 WORKDIR /app
 
-COPY requirements.txt .
-
+# Copy requirements and install dependencies
+COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+# Copy application files
+COPY . /app
 
+# Expose port
 EXPOSE 8080
 
-ENV FLASK_APP=app.py  # Pastikan nama file aplikasi sesuai
-ENV FLASK_RUN_HOST=0.0.0.0
-ENV FLASK_RUN_PORT=8080
-
-CMD ["flask", "run"]
+# Run the application
+CMD ["python", "app.py"]
