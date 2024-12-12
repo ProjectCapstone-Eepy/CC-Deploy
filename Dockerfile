@@ -14,4 +14,4 @@ ENV FLASK_APP=app.py  # Pastikan nama file aplikasi sesuai
 ENV FLASK_RUN_HOST=0.0.0.0
 ENV FLASK_RUN_PORT=8080
 
-CMD ["python", "app.py"]
+CMD ["flask", "run"]
