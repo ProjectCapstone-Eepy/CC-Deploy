@@ -21,7 +21,7 @@ COPY sleep_quality.pkl /app/
 COPY sleep_duration.pkl /app/
 
 # Salin seluruh aplikasi ke dalam container
-COPY . /app
+COPY . .
 
 # Tentukan port untuk aplikasi Flask
 EXPOSE 8080
