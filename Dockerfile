@@ -17,8 +17,8 @@ RUN pip install protobuf==3.19.6
 RUN pip install tensorflow==2.10 keras==2.10
 
 # Salin file model ke dalam container
-COPY Quality.h5 /app/
-COPY Duration.h5 /app/
+COPY sleep_quality.pkl /app/
+COPY sleep_duration /app/
 
 # Salin seluruh aplikasi ke dalam container
 COPY . /app
