@@ -14,8 +14,8 @@ scaler = MinMaxScaler() # Normalisation scaler
 
 # Load Model
 try:
-    s_quality = keras.models.load_model('/app/sleep_quality.h5')
-    s_duration = keras.models.load_model('/app/sleep_duration.h5')
+    s_quality = keras.models.load_model('/app/Quality.h5')
+    s_duration = keras.models.load_model('/app/Duration.h5')
 except FileNotFoundError:
     s_quality = None
     s_duration = None
