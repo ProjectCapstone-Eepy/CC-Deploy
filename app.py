@@ -8,8 +8,8 @@ CORS(app)  # Enable CORS
 
 # Load Models
 try:
-    s_quality = joblib.load('/sleep_quality.pkl')
-    s_duration = joblib.load('/sleep_duration.pkl')
+    s_quality = joblib.load('sleep_quality.pkl')
+    s_duration = joblib.load('sleep_duration.pkl')
     print("Models loaded successfully.")
 except FileNotFoundError as e:
     print("Error: Model file not found. Ensure 'sleep_quality.pkl' and 'sleep_duration.pkl' exist.")
