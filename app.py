@@ -1,7 +1,6 @@
 import joblib
-import tensorflow as tf
 
-from tensorflow import keras
+from tensorflow.keras.models import load_model
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from sklearn.preprocessing import MinMaxScaler
@@ -14,12 +13,12 @@ scaler = MinMaxScaler() # Normalisation scaler
 
 # Load Model
 try:
-    s_quality = keras.models.load_model('/app/Quality.h5')
-    s_duration = keras.models.load_model('/app/Duration.h5')
-except FileNotFoundError:
+    s_quality = load_model('Quality.h5')
+    s_duration = load_model('Duration.h5')
+except OSError as e:
     s_quality = None
     s_duration = None
-    print("Model not found")
+    print(f"Model not found or incompatible: {e}")
 
 # Endpoint Default
 @app.route('/')
@@ -44,7 +43,7 @@ def predict_quality():
     input_features = [[gender, age, physical_activity, stress_level, sleep_duration]]
     input_features = np.array(input_features, dtype='float32')
     prediction = s_quality.predict(input_features)
-    prediction = float(prediction) # Ambil nilai prediksi dari array
+    prediction = float(prediction)
     prediction = prediction / 100
     return jsonify({"prediction": prediction}), 200
 
@@ -65,7 +64,7 @@ def predict_duration():
     input_features = [[gender, age, physical_activity, stress_level]]
     input_features = np.array(input_features, dtype='float32')
     prediction = s_duration.predict(input_features)
-    prediction = float(prediction) # Ambil nilai prediksi dari array
+    prediction = float(prediction)
     prediction = prediction / 10
     return jsonify({"prediction": prediction}), 200
 
