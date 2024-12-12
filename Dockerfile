@@ -18,7 +18,7 @@ RUN pip install tensorflow==2.10 keras==2.10
 
 # Salin file model ke dalam container
 COPY sleep_quality.pkl /app/
-COPY sleep_duration /app/
+COPY sleep_duration.pkl /app/
 
 # Salin seluruh aplikasi ke dalam container
 COPY . /app
